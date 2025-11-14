@@ -94,10 +94,48 @@
 </div>
 
         <!-- MAIN CONTENT -->
+        
+        <%
+			    String msg = (String) session.getAttribute("msg");
+			    if (msg != null) {
+			%>
+			
+			<style>
+			    #autoAlert {
+			        width: 350px;
+			        height: 60px;
+			        position: fixed;
+			        top: 20px;
+			        right: 20px;
+			        z-index: 9999;
+			    }
+			</style>
+			
+			<div id="autoAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+			    <%= msg %>
+			    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+			
+			<script>
+			    setTimeout(() => {
+			        const alertBox = document.getElementById("autoAlert");
+			        if (alertBox) {
+			            alertBox.classList.remove("show"); // fade-out
+			            alertBox.classList.add("hide");
+			        }
+			    }, 3000); // 3 seconds
+			</script>
+			
+			<%
+			    session.removeAttribute("msg");
+			    }
+			%>
+        
         <div class="col py-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold text-primary">Users Management</h4>
-                <button class="btn btn-success btn-sm">Add User</button>
+                <a href="AddNewUser.jsp" class="btn btn-success btn-sm">Add User</a>
+
             </div>
 
             <div class="table-responsive" style="max-height: 80vh; overflow-y: auto;">
@@ -123,14 +161,21 @@
                             <td><%= u.getEmail() %></td>
                             <td><%= u.getRole() %></td>
                             <td>
-                                <button class="btn btn-warning btn-sm">Edit</button>
+                                 <form action="admin" method="post">
+						          <input type="hidden" name="typeOfPage" value="users">
+						          <input type="hidden" name="operation" value="edit">
+						          <input type="hidden" name="userId" value=<%=u.getUserId() %>>
+						          <button type="submit" class="btn btn-warning btn-sm">
+						            <i class="bi bi-people me-2"></i> Edit
+						          </button>
+						        </form>
                                  
-                                <form action="admin" method="post">
+                                <form action="deleteUser" method="post">
 						          <input type="hidden" name="typeOfPage" value="users">
 						          <input type="hidden" name="operation" value="delete">
-						          <button type="submit" class="btn btn-warning btn-sm">
-						            <i class="bi bi-people me-2"></i> Delete
-						          </button>
+						          <input type="hidden" name="userId" value=<%=u.getUserId() %>>
+						          <button type="submit" class="btn btn-danger">
+						             Delete
 						        </form>
                             </td>
                         </tr>

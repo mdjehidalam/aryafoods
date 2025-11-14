@@ -17,34 +17,54 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin")
 public class Admin extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
+ 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-    	HttpSession session = req.getSession();
+
+        HttpSession session = req.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
 
+        // Check login
         if (userId == null) {
             res.sendRedirect("loginpage");
             return;
         }
 
-        List<User>userList = new UserI().getAll();
-        List<Orders>orderList = new OrdersI().getAll();
+        // Load lists
+        List<User> userList = new UserI().getAll();
+        List<Orders> orderList = new OrdersI().getAll();
+
         req.setAttribute("orderList", orderList);
         req.setAttribute("userList", userList);
+
         String tabName = req.getParameter("typeOfPage");
         String operation = req.getParameter("operation");
-        if(tabName!=null && operation!=null && tabName.equalsIgnoreCase("users") && operation.equalsIgnoreCase("delete")) {
-        	new UserI().deleteUser(Integer.parseInt(req.getParameter("userId")));
-        	req.getRequestDispatcher("User.jsp").forward(req, res);
-        } else if(tabName!=null && operation!=null && tabName.equalsIgnoreCase("users") && operation.equalsIgnoreCase("edit")) {
-        	 
+
+         
+
+        // ---------------------------
+        // User Edit Logic
+        // ---------------------------
+        if (tabName != null && operation != null &&
+                tabName.equalsIgnoreCase("users") &&
+                operation.equalsIgnoreCase("edit")) {
+            int id =  req.getParameter("userId")!= null ?  Integer.parseInt(req.getParameter("userId")) : -1;
+            User u = new UserI().getUser(id);
+            req.setAttribute("user", u);
+            req.getRequestDispatcher("updateUser.jsp").forward(req, res);
+            return;
         }
-        
-        if( tabName!=null && tabName.equalsIgnoreCase("users") ) req.getRequestDispatcher("User.jsp").forward(req, res);
-        else
+
+        // ---------------------------
+        // Load User Tab
+        // ---------------------------
+        if (tabName != null && tabName.equalsIgnoreCase("users")) {
+            req.getRequestDispatcher("User.jsp").forward(req, res);
+            return;
+        }
+
+        // Default: Admin Dashboard
         req.getRequestDispatcher("Admin.jsp").forward(req, res);
-     }
+    }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ page import="com.arya.model.User" %>
 <meta charset="UTF-8">
 <title>Update User</title>
 
@@ -17,46 +18,54 @@
         </div>
 
         <div class="card-body">
+       	<%
+       		User u = (User) request.getAttribute("user"); 
+       		if(u!=null) { 
+       	%>
 
-            <form>
+            <form action="admin" method="post">
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control" placeholder="Enter full name">
+                        <input type="text" class="form-control" name="name" value="<%=u.getName() %>" placeholder="Enter full name">
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Username</label>
-                        <input type="text" class="form-control" placeholder="Enter username">
+                        <input type="text" class="form-control" name="username" value=<%=u.getUsername() %> placeholder="Enter username" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control" placeholder="Enter email">
+                        <input type="email" class="form-control" name="email" value= <%=u.getEmail() %> placeholder="Enter email">
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Phone No</label>
-                        <input type="text" class="form-control" placeholder="Enter phone number">
+                        <input type="text" class="form-control" name="phoneno" value=<%=u.getPhoneNo() %> placeholder="Enter phone number">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Address</label>
-                    <textarea class="form-control" rows="2" placeholder="Enter address"></textarea>
+					<textarea class="form-control" rows="2" name="address" placeholder="Enter address">
+					    ${u.getAddress() != null ? u.getAddress() : ""}
+					</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter new password">
+                    <input type="text" class="form-control" name="password" value=<%=u.getPassword() %>  placeholder="Enter new password">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Role</label>
                     <select class="form-select">
+                        <option value=<%=u.getRole() %>" selected ><%=u.getRole() %></option>
+                    
                         <option value="CUSTOMER">Customer</option>
                         <option value="RESTAURANT_OWNER">Restaurant Owner</option>
                         <option value="DELIVERY_BOY">Delivery Boy</option>
@@ -79,9 +88,10 @@
                 </div>
 
                 <div class="text-end">
-                    <button class="btn btn-success px-4">Update</button>
-                    <button class="btn btn-secondary">Cancel</button>
-                </div>
+                
+             		<input type="submit" class="btn btn-success px-4" value="Update">
+                    <a href="admin" class="btn btn-secondary">Cancel</a>
+                 </div>
 
             </form>
 
@@ -89,6 +99,7 @@
     </div>
 
 </div>
+<%} %>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -96,8 +96,45 @@
 
 
         <!-- MAIN CONTENT -->
- 
-    </div>
+			  <%
+    String msg = (String) session.getAttribute("msg");
+    if (msg != null) {
+%>
+
+<style>
+    #autoAlert {
+        width: 350px;
+        height: 60px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+    }
+</style>
+
+<div id="autoAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= msg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<script>
+    setTimeout(() => {
+        const alertBox = document.getElementById("autoAlert");
+        if (alertBox) {
+            alertBox.classList.remove("show"); // fade-out
+            alertBox.classList.add("hide");
+        }
+    }, 3000); // 3 seconds
+</script>
+
+<%
+    session.removeAttribute("msg");
+    }
+%>
+
+			
+			 
+	</div>
 </div>
 
 <!-- BOOTSTRAP JS -->

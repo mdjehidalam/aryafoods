@@ -40,8 +40,8 @@
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-12">
-                        <label class="form-label">Phone</label>
-                        <input type="text" name="phoneNo" class="form-control" placeholder="Enter phone number" required>
+                        <label class="form-label">Phone No.</label>
+                        <input type="number" name="phoneNo" class="form-control" maxlength='10' placeholder="Enter phone number" required>
                     </div>
                 </div>
 
@@ -55,8 +55,8 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <label class="form-label">Role</label>
                         <select name="role" class="form-select" required>
-                            <option value="">Select Role</option>
-                            <option value="CUSTOMER">Customer</option>
+                            
+                            <option value="CUSTOMER" selected>Customer</option>
                             <option value="RESTAURANT_OWNER">Restaurant Owner</option>
                             <option value="DELIVERY_BOY">Delivery Boy</option>
                             <option value="SYSTEM_ADMIN">System Admin</option>
