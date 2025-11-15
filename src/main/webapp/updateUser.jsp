@@ -23,13 +23,18 @@
        		if(u!=null) { 
        	%>
 
-            <form action="admin" method="post">
+            <form action="updateUserByAdmin" method="post">
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                	<div class="col-md-2">
+                        <label class="form-label fw-bold">ID</label>
+                        <input type="text" class="form-control" name="userId" value="<%=u.getUserId() %>" placeholder="Enter full name" readonly>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label fw-bold">Name</label>
                         <input type="text" class="form-control" name="name" value="<%=u.getName() %>" placeholder="Enter full name">
                     </div>
+                    
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Username</label>
@@ -62,28 +67,34 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Role</label>
-                    <select class="form-select">
-                        <option value=<%=u.getRole() %>" selected ><%=u.getRole() %></option>
-                    
-                        <option value="CUSTOMER">Customer</option>
-                        <option value="RESTAURANT_OWNER">Restaurant Owner</option>
-                        <option value="DELIVERY_BOY">Delivery Boy</option>
-                        <option value="SYSTEM_ADMIN">System Admin</option>
-                    </select>
-                </div>
+			    <label class="form-label fw-bold">Role</label>
+			    <select name="role" class="form-select">
+			        
+			        <!-- Current selected role -->
+			        <option value="<%= u.getRole() %>" selected>
+			            <%= u.getRole() %>
+			        </option>
+			
+			        <!-- Other roles -->
+			        <option value="<%= User.Role.CUSTOMER %>">Customer</option>
+			        <option value="<%= User.Role.RESTAURANT_OWNER %>">Restaurant Owner</option>
+			        <option value="<%= User.Role.DELIVERY_BOY %>">Delivery Boy</option>
+			        <option value="<%= User.Role.SYSTEM_ADMIN %>">System Admin</option>
+			    </select>
+			</div>
+
 
                 <hr>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Created Date</label>
-                        <input type="text" class="form-control" disabled value="Auto-generated">
+                        <input type="text" " class="form-control" disabled value="<%=u.getCreateDate() %>">
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Last Login Date</label>
-                        <input type="text" class="form-control" disabled value="Auto-generated">
+                        <input type="text" class="form-control" disabled value="<%=u.getLastLoginDate() %>">
                     </div>
                 </div>
 

@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 				if(count < 3) {
 					req.getRequestDispatcher("LoginError.jsp").forward(req, res);
 				} else {
+					session.setAttribute("count", 0); // reset
 					req.getRequestDispatcher("Block.jsp").forward(req, res);
 				}
 				return;
