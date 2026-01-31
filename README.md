@@ -192,6 +192,29 @@ Got it! You want the **Project Structure section** formatted in Markdown with pr
 
 
 
+---
+
+## 🙌 Acknowledgements & Final Note
+
+This project was developed by **Md Jehid Alam** as part of hands-on learning in **Java J2EE web development**.  
+It focuses on applying real-world concepts such as **MVC architecture, Servlets, JSP, JDBC, and database integration** to build a scalable and maintainable application.
+
+Feedback, suggestions, and improvements are always welcome.  
+If you find this project helpful or interesting, feel free to ⭐ the repository and explore the codebase.
+
+---
+
+## 📬 Contact
+
+For any queries, feedback, or collaboration opportunities, feel free to reach out:
+
+- **Email**: mdjehidalam2023@gmail.com 
+- **GitHub**: https://github.com/mdjehidalam
+
+
+
+
+
 
 
 
